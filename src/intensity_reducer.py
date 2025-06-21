@@ -6,16 +6,7 @@ import argparse
 
 
 def reduce_intensity_levels(image, levels):
-    """
-    Reduce the number of intensity levels in an image.
 
-    Args:
-        image (numpy.ndarray): Input grayscale image
-        levels (int): Desired number of intensity levels (between 2 and 256)
-
-    Returns:
-        numpy.ndarray: Image with reduced intensity levels
-    """
     # Check if levels is valid
     if levels < 2 or levels > 256:
         raise ValueError("Number of intensity levels must be between 2 and 256")
@@ -30,15 +21,7 @@ def reduce_intensity_levels(image, levels):
 
 
 def generate_intensity_levels(min_level):
-    """
-    Generate all intensity levels from 256 down to min_level in powers of 2.
 
-    Args:
-        min_level (int): Minimum intensity level (must be a power of 2)
-
-    Returns:
-        list: List of intensity levels in descending order
-    """
     if not (min_level & (min_level - 1) == 0) or min_level <= 0:
         raise ValueError("Minimum level must be a positive power of 2")
 
@@ -53,7 +36,6 @@ def generate_intensity_levels(min_level):
 
 
 def display_results(original, processed, title):
-    """Display original and processed images side by side"""
     plt.figure(figsize=(10, 5))
 
     plt.subplot(1, 2, 1)
