@@ -4,10 +4,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Import our modules
-from intensity_reducer import reduce_intensity_levels, generate_intensity_levels
-from spatial_average import apply_spatial_average
-from image_rotator import rotate_image
-from resolution_reducer import reduce_resolution
+from task1_intensity_reducer import reduce_intensity_levels, generate_intensity_levels
+from task2_spatial_average import apply_spatial_average
+from task3_image_rotator import rotate_image
+from task4_resolution_reducer import reduce_resolution
 
 
 def ensure_directories():
@@ -114,7 +114,9 @@ def main():
     # Use a single intensity level
     intensity_levels = [intensity_level]
 
-    print(f"Using intensity level: {intensity_level}")    # Ensure directories exist
+    print(f"Using intensity level: {intensity_level}")
+    
+    # Ensure directories exist
     input_dir, output_dir = ensure_directories()
     
     # Process the image with all operations
@@ -123,22 +125,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-from resolution_reducer import reduce_resolution
-
-
-def ensure_directories():
-    input_dir = "../input"
-    output_dir = "../output"
-
-    if not os.path.exists(input_dir):
-        os.makedirs(input_dir)
-        print(f"Created input directory: {input_dir}")
-        print(
-            f"Please place a test image named 'sample_image.jpg' in the {input_dir} folder"
-        )
-
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-        print(f"Created output directory: {output_dir}")
-
-    return input_dir, output_dir
