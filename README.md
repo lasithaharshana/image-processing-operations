@@ -1,18 +1,34 @@
-# EC7212 – Computer Vision and Image Processing – Assignment 1
+# EC7212 – Computer Vision and Image Processing
+
+## Take Home Assignment 1 Report
 
 **Name**: De Silva K.B.L.H.  
 **Index No**: EG/2020/3882  
-**GitHub Repository**: [Image Processing Operations](https://github.com/lasithaharshana/image-processing-operations.git)
+
+## Introduction
+
+This report documents the implementation of fundamental image processing operations as part of the EC7212 - Computer Vision and Image Processing course. The project demonstrates four essential image processing techniques:
+
+1. Intensity level reduction
+2. Spatial averaging (smoothing)
+3. Image rotation
+4. Spatial resolution reduction
+
+Each task is implemented in Python using libraries such as OpenCV, NumPy, and Matplotlib. The code is organized in modular scripts, with a main program that can execute all operations sequentially.
 
 ## Sample Image
+
+The following image was used as input for all the operations:
 
 ![Sample Image](output/original.jpg)
 
 ## Task 1: Intensity Level Reduction
 
-This task reduces the number of intensity levels from 256 to a user-specified value between 2 and 256.
+### Task 1 Description
 
-### Code Sample
+Reduce the number of intensity levels from 256 to a user-specified value between 2 and 256.
+
+### Task 1 Implementation
 
 ```python
 def reduce_intensity_levels(image, levels):
@@ -32,17 +48,46 @@ def reduce_intensity_levels(image, levels):
     return reduced
 ```
 
-### Results
+### Task 1 Results
 
-Original | Reduced to 256 Levels
-:-------------------------:|:-------------------------:
-![Original Image](output/original.jpg) | ![Reduced Intensity](output/intensity_reduced_256_levels.jpg)
+**Original Image**  
+![Original](output/original.jpg)
+
+**256 Levels**  
+![256 Levels](output/intensity_reduced_256_levels.jpg)
+
+**128 Levels**  
+![128 Levels](output/intensity_reduced_128_levels.jpg)
+
+**64 Levels**  
+![64 Levels](output/intensity_reduced_64_levels.jpg)
+
+**32 Levels**  
+![32 Levels](output/intensity_reduced_32_levels.jpg)
+
+**16 Levels**  
+![16 Levels](output/intensity_reduced_16_levels.jpg)
+
+**8 Levels**  
+![8 Levels](output/intensity_reduced_8_levels.jpg)
+
+**4 Levels**  
+![4 Levels](output/intensity_reduced_4_levels.jpg)
+
+**2 Levels**  
+![2 Levels](output/intensity_reduced_2_levels.jpg)
 
 ## Task 2: Spatial Averaging (Smoothing)
 
-This task applies average filtering using kernels of different sizes: 3×3, 10×10, and 20×20.
+### Task 2 Description
 
-### Code Sample
+Apply average filtering using different kernel sizes:
+
+- 3×3 kernel
+- 10×10 kernel
+- 20×20 kernel
+
+### Task 2 Implementation
 
 ```python
 def apply_spatial_average(image, kernel_size):
@@ -58,17 +103,30 @@ def apply_spatial_average(image, kernel_size):
     return averaged
 ```
 
-### Results
+### Task 2 Results
 
-3×3 Kernel | 10×10 Kernel | 20×20 Kernel
-:-------------------------:|:-------------------------:|:-------------------------:
-![3×3 Average](output/spatial_average_3x3.jpg) | ![10×10 Average](output/spatial_average_10x10.jpg) | ![20×20 Average](output/spatial_average_20x20.jpg)
+**Original Image**  
+![Original Image](output/original.jpg)
+
+**3×3 Kernel**  
+![3×3 Average](output/spatial_average_3x3.jpg)
+
+**10×10 Kernel**  
+![10×10 Average](output/spatial_average_10x10.jpg)
+
+**20×20 Kernel**  
+![20×20 Average](output/spatial_average_20x20.jpg)
 
 ## Task 3: Image Rotation
 
-This task rotates the image by specified angles, including 45 and 90 degrees.
+### Task 3 Description
 
-### Code Sample
+Rotate the image by:
+
+- 45 degrees
+- 90 degrees
+
+### Task 3 Implementation
 
 ```python
 def rotate_image(image, angle):
@@ -96,27 +154,34 @@ def rotate_image(image, angle):
         new_width = int(height * abs_sin + width * abs_cos)
         new_height = int(height * abs_cos + width * abs_sin)
     
-    # Adjust the rotation matrix
-    rotation_matrix[0, 2] += (new_width - width) // 2
-    rotation_matrix[1, 2] += (new_height - height) // 2
-    
     # Perform the rotation
     rotated = cv2.warpAffine(image, rotation_matrix, (new_width, new_height))
     
     return rotated
 ```
 
-### Results
+### Task 3 Results
 
-45 Degrees | 90 Degrees
-:-------------------------:|:-------------------------:
-![45 Degrees Rotation](output/rotated_45_degrees.jpg) | ![90 Degrees Rotation](output/rotated_90_degrees.jpg)
+**Original Image**  
+![Original Image](output/original.jpg)
+
+**45 Degrees**  
+![45 Degrees Rotation](output/rotated_45_degrees.jpg)
+
+**90 Degrees**  
+![90 Degrees Rotation](output/rotated_90_degrees.jpg)
 
 ## Task 4: Spatial Resolution Reduction
 
-This task divides the image into non-overlapping blocks and replaces all pixels in each block with their average value. Block sizes used: 3×3, 5×5, and 7×7.
+### Task 4 Description
 
-### Code Sample
+Divide the image into non-overlapping blocks and replace all pixels in each block with their average value. Block sizes used:
+
+- 3×3
+- 5×5
+- 7×7
+
+### Task 4 Implementation
 
 ```python
 def reduce_resolution(image, block_size):
@@ -154,81 +219,92 @@ def reduce_resolution(image, block_size):
     return reduced
 ```
 
-### Results
+### Task 4 Results
 
-3×3 Blocks | 5×5 Blocks | 7×7 Blocks
-:-------------------------:|:-------------------------:|:-------------------------:
-![3×3 Resolution Reduction](output/resolution_reduced_3x3.jpg) | ![5×5 Resolution Reduction](output/resolution_reduced_5x5.jpg) | ![7×7 Resolution Reduction](output/resolution_reduced_7x7.jpg)
+**Original Image**  
+![Original Image](output/original.jpg)
 
-## How to Run the Project
+**3×3 Blocks**  
+![3×3 Resolution Reduction](output/resolution_reduced_3x3.jpg)
 
-### Requirements
+**5×5 Blocks**  
+![5×5 Resolution Reduction](output/resolution_reduced_5x5.jpg)
 
-- Python 3.6 or higher
-- Required packages: NumPy, OpenCV, Matplotlib
+**7×7 Blocks**  
+![7×7 Resolution Reduction](output/resolution_reduced_7x7.jpg)
 
-### Installation
+## How to Run the Code
+
+### Running All Tasks
+
+To execute all image processing operations with one command:
+
+```bash
+cd src
+python main.py  # Runs all tasks with user-specified intensity level
+```
+
+### Running Individual Tasks
+
+For executing specific image processing operations:
+
+```bash
+cd src
+python task1_intensity_reducer.py  # Run intensity reduction only
+python task2_spatial_average.py    # Run spatial averaging only
+python task3_image_rotator.py      # Run image rotation only
+python task4_resolution_reducer.py # Run resolution reduction only
+```
+
+### Project Structure
+
+```text
+image-processing-operations/
+├── input/
+│   └── sample_image.jpg           # Input image for processing
+├── output/                        # Directory for processed images
+│   ├── intensity_reduced_*.jpg    # Results from Task 1
+│   ├── spatial_average_*.jpg      # Results from Task 2
+│   ├── rotated_*.jpg              # Results from Task 3
+│   └── resolution_reduced_*.jpg   # Results from Task 4
+├── src/
+│   ├── main.py                    # Main script to run all operations
+│   ├── task1_intensity_reducer.py # Intensity level reduction
+│   ├── task2_spatial_average.py   # Spatial averaging (smoothing)
+│   ├── task3_image_rotator.py     # Image rotation
+│   └── task4_resolution_reducer.py # Resolution reduction
+└── requirements.txt               # Project dependencies
+```
+
+### Project Dependencies
+
+The following Python packages are required to run the code:
+
+```text
+numpy>=1.20.0
+opencv-python>=4.5.0
+matplotlib>=3.3.0
+pillow>=8.0.0
+```
+
+Install the dependencies using pip:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Running the Program
-
-1. **Using the batch file (Windows):**
-   
-   Simply double-click `run_image_processing.bat`
-   
-   The program will ask for an intensity level (between 2 and 256) and perform all operations.
-
-2. **Using command line:**
-
-   ```bash
-   cd src
-   python main.py
-   ```
-   
-   Just like the batch file, this will prompt for an intensity level and perform all operations.
-
-3. **Running individual operations:**
-
-   ```bash
-   cd src
-   python intensity_reducer.py --levels 16
-   python spatial_average.py
-   python image_rotator.py
-   python resolution_reducer.py
-   ```
-
-## Project Structure
-
-```text
-image-processing-operations/
-│
-├── input/                  # Input images
-│   └── sample_image.jpg    # Sample image to process
-│
-├── output/                 # Output directory for processed images
-│
-├── src/                    # Source code
-│   ├── intensity_reducer.py  # Code for intensity level reduction
-│   ├── spatial_average.py    # Code for spatial averaging
-│   ├── image_rotator.py      # Code for image rotation
-│   ├── resolution_reducer.py # Code for resolution reduction
-│   └── main.py               # Main program integrating all operations
-│
-├── requirements.txt        # Required packages
-└── run_image_processing.bat  # Script to run the application on Windows
-```
-
 ## Conclusion
 
-This project implements four fundamental image processing operations as required for the assignment. Each task was implemented in a separate module for better code organization and maintainability:
+This project successfully implemented and demonstrated four fundamental image processing operations:
 
-1. **Intensity Level Reduction**: Reduces intensity levels from 256 to a user-specified value (2-256)
-2. **Spatial Averaging**: Applies smoothing with different kernel sizes
-3. **Image Rotation**: Rotates images by 45 and 90 degrees
-4. **Resolution Reduction**: Reduces spatial resolution using block-based averaging
+1. **Intensity Level Reduction**: Showed how reducing the number of intensity levels affects image appearance, from subtle changes at 128 levels to dramatic binarization at 2 levels.
 
-For full code and additional images, visit:  
-[https://github.com/lasithaharshana/image-processing-operations.git](https://github.com/lasithaharshana/image-processing-operations.git)
+2. **Spatial Averaging**: Demonstrated how different kernel sizes affect image blurring, with larger kernels producing more pronounced smoothing effects.
+
+3. **Image Rotation**: Implemented rotation transformations at 45° and 90° angles, properly handling image dimensions and interpolation.
+
+4. **Resolution Reduction**: Reduced spatial resolution by replacing pixel blocks with their average values, showing how detail is lost as block sizes increase.
+
+These operations form the foundation of many advanced image processing and computer vision algorithms, providing important insights into how digital images can be manipulated and analyzed.
+
+## End of Report
