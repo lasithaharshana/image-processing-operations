@@ -2,7 +2,6 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-import argparse
 
 
 def reduce_intensity_levels(image, levels):
@@ -53,56 +52,35 @@ def display_results(original, processed, title):
 
 
 if __name__ == "__main__":
-    # Parse command-line arguments
-    parser = argparse.ArgumentParser(description="Reduce intensity levels of an image")
-    parser.add_argument(
-        "--image",
-        type=str,
-        default="../input/sample_image.jpg",
-        help="Path to the input image",
-    )
-    parser.add_argument(
-        "--level",
-        type=int,
-        help="The exact intensity level (between 2-256) to reduce to",
-    )
-    parser.add_argument(
-        "--manual",
-        action="store_true",
-        help="Manually enter intensity level after running",
-    )
-    args = parser.parse_args()
-
     # Ensure output directory exists
     output_dir = "../output"
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-
+        
     # Read image
-    img_path = args.image
+    img_path = "../input/sample_image.jpg"
     img = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
 
     if img is None:
         print(f"Error: Could not read image {img_path}.")
         exit(1)
+        
+    # Get intensity level from user
+    intensity_level = None
+    print("\n=== Intensity Level Reduction ===")
+    print("Enter the exact number of intensity levels to reduce to:")
+    print("Enter any number between 2 and 256")
 
-    # Get intensity level from user if --manual flag is set or no level provided
-    intensity_level = args.level
-    if args.manual or intensity_level is None:
-        print("\n=== Intensity Level Reduction ===")
-        print("Enter the exact number of intensity levels to reduce to:")
-        print("Enter any number between 2 and 256")
-
-        while True:
-            try:
-                user_input = input("Enter intensity level (2-256): ")
-                intensity_level = int(user_input)
-                if 2 <= intensity_level <= 256:
-                    break
-                else:
-                    print("Invalid input. Please enter a number between 2 and 256.")
-            except ValueError:
-                print("Invalid input. Please enter a valid number.")
+    while True:
+        try:
+            user_input = input("Enter intensity level (2-256): ")
+            intensity_level = int(user_input)
+            if 2 <= intensity_level <= 256:
+                break
+            else:
+                print("Invalid input. Please enter a number between 2 and 256.")
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
 
     # Validate that the level is within range
     if not (2 <= intensity_level <= 256):

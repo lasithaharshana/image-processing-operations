@@ -2,7 +2,6 @@ import os
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-import argparse
 
 # Import our modules
 from intensity_reducer import reduce_intensity_levels, generate_intensity_levels
@@ -95,15 +94,6 @@ def process_all_operations(image_path, intensity_levels=None):
 
 
 def main():
-    # Parse command-line arguments
-    parser = argparse.ArgumentParser(description="Image Processing Operations")
-    parser.add_argument(
-        "--image",
-        type=str,
-        default="../input/sample_image.jpg",
-        help="Path to the input image (default: ../input/sample_image.jpg)",
-    )
-    args = parser.parse_args()
 
     # Always ask for exact intensity level
     print("\n=== Intensity Level Reduction ===")
@@ -124,14 +114,31 @@ def main():
     # Use a single intensity level
     intensity_levels = [intensity_level]
 
-    print(f"Using intensity level: {intensity_level}")
-
-    # Ensure directories exist
+    print(f"Using intensity level: {intensity_level}")    # Ensure directories exist
     input_dir, output_dir = ensure_directories()
-
+    
     # Process the image with all operations
-    process_all_operations(args.image, intensity_levels)
+    process_all_operations("../input/sample_image.jpg", intensity_levels)
 
 
 if __name__ == "__main__":
     main()
+from resolution_reducer import reduce_resolution
+
+
+def ensure_directories():
+    input_dir = "../input"
+    output_dir = "../output"
+
+    if not os.path.exists(input_dir):
+        os.makedirs(input_dir)
+        print(f"Created input directory: {input_dir}")
+        print(
+            f"Please place a test image named 'sample_image.jpg' in the {input_dir} folder"
+        )
+
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+        print(f"Created output directory: {output_dir}")
+
+    return input_dir, output_dir
