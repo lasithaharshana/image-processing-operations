@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import argparse
 
 # Import our modules
-from intensity_reducer import reduce_intensity_levels
+from intensity_reducer import reduce_intensity_levels, generate_intensity_levels
 from spatial_average import apply_spatial_average
 from image_rotator import rotate_image
 from resolution_reducer import reduce_resolution
@@ -28,8 +28,14 @@ def ensure_directories():
     return input_dir, output_dir
 
 
-def process_all_operations(image_path):
-    """Process the image with all operations"""
+def process_all_operations(image_path, intensity_levels=None):
+    """
+    Process the image with all operations
+    
+    Args:
+        image_path (str): Path to the input image
+        intensity_levels (list): List of intensity levels to reduce to (powers of 2)
+    """
     print("\n==== IMAGE PROCESSING OPERATIONS ====\n")
     
     # Check if image exists
@@ -55,11 +61,13 @@ def process_all_operations(image_path):
     
     # 1. Reduce intensity levels
     print("\n1. Reducing intensity levels...")
-    for levels in [128, 64, 32, 16, 8, 4, 2]:
-        reduced_img = reduce_intensity_levels(img, levels)
-        output_path = f"{output_dir}/intensity_reduced_{levels}_levels.jpg"
+    
+    # Process with provided intensity levels
+    for level in intensity_levels:
+        reduced_img = reduce_intensity_levels(img, level)
+        output_path = f"{output_dir}/intensity_reduced_{level}_levels.jpg"
         cv2.imwrite(output_path, reduced_img)
-        print(f"  - Saved image with {levels} intensity levels to {output_path}")
+        print(f"  - Saved image with {level} intensity levels to {output_path}")
     
     # 2. Spatial averaging
     print("\n2. Applying spatial averaging...")
@@ -96,11 +104,32 @@ def main():
                       help='Path to the input image (default: ../input/sample_image.jpg)')
     args = parser.parse_args()
     
+    # Always ask for exact intensity level
+    print("\n=== Intensity Level Reduction ===")
+    print("Enter the exact number of intensity levels to reduce to:")
+    print("Enter any number between 2 and 256")
+    
+    while True:
+        try:
+            intensity_level = int(input("Enter intensity level (2-256): "))
+            # Validate that it's between 2 and 256
+            if 2 <= intensity_level <= 256:
+                break
+            else:
+                print("Invalid input. Please enter a number between 2 and 256.")
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+    
+    # Use a single intensity level
+    intensity_levels = [intensity_level]
+    
+    print(f"Using intensity level: {intensity_level}")
+    
     # Ensure directories exist
     input_dir, output_dir = ensure_directories()
     
     # Process the image with all operations
-    process_all_operations(args.image)
+    process_all_operations(args.image, intensity_levels)
 
 
 if __name__ == "__main__":
